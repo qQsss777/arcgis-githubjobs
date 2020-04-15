@@ -1,0 +1,10 @@
+{
+    "redis": {
+        "port": 6379
+    },
+    "github": {
+        "baseUrl": "https://jobs.github.com/positions.json?",
+        "location": "Europe",
+        "type": "javascript"
+    }
+}
