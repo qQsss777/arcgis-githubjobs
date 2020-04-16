@@ -20,6 +20,6 @@ app.use(cors());
 // Routes
 app.use(router.routes()).use(router.allowedMethods());
 
-startWorker()
-    .then(_ => listen(5000))
-    .then(_ => console.log(`server started with port 5000`));
+listen(8000)
+    .then(_ => console.log(`server started with port 8000`))
+    .then(_ => startWorker());

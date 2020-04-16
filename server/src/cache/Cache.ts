@@ -4,6 +4,7 @@ const config = require("../../config.json");
 
 export default class RedisCache {
     port: number;
+    host: string;
     _client: redis.RedisClient;
     static instance: any;
 
@@ -11,7 +12,8 @@ export default class RedisCache {
         RedisCache.instance ? RedisCache.instance : null;
         RedisCache.instance = this;
         this.port = config.redis.port;
-        this._client = redis.createClient(this.port);
+        this.host = config.redis.host
+        this._client = redis.createClient(this.port, this.host);
     }
 
     async getAsync(key: string): Promise<any> {

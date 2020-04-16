@@ -1,7 +1,6 @@
 import { URLSearchParams } from "url";
 import { GitHubResult } from "../interfaces";
 import RedisCache from "../cache/Cache";
-import { createCipher } from "crypto";
 
 const fetch = require('node-fetch');
 const config = require('../../config.json')
