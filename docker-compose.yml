@@ -1,0 +1,31 @@
+version: "3"
+services:
+    redis:
+        container_name: redis_githubjobs
+        image: "redis:alpine"
+        networks:
+            - redis
+        ports:
+            - "6379:6379"
+    frontend:
+        container_name: front_githubjobs
+        networks:
+            - redis
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        image: mlemoigne/front_githubjobs
+        ports:
+            - "5000:5000"
+    backend:
+        container_name: back_githubjobs
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        image: mlemoigne/back_githubjobs
+        networks:
+            - redis
+        ports:
+            - "8000:8000"
+networks:
+  redis:

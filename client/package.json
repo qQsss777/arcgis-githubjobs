@@ -8,7 +8,8 @@
     "arcgis-js-api": "^4.15.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "serve": "^11.3.0"
   },
   "devDependencies": {
     "@arcgis/webpack-plugin": "^4.15.0",
@@ -45,7 +46,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "start": "serve dist"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -117,7 +119,7 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:8000",
   "arcgis": {
     "type": "jsapi"
   }

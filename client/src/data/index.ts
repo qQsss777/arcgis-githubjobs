@@ -7,36 +7,66 @@ import { GitHubResult, GeoJSON, Features, GeometryPointJSON } from '../interface
 
 let geojsonlayer: GeoJSONLayer;
 
+const extent = {
+    xmin: -6402610.923685171,
+    xmax: 7881940.92224477,
+    ymin: 3816716.025356518,
+    ymax: 8102081.5791355,
+    spatialReference: {
+        wkid: 3857
+    }
+}
+
 export const locator = new Locator({
     url: "VOTRE_URL"
 });
 
 export const map = new Map({
-    basemap: 'topo'
+    basemap: {
+        portalItem: {
+            id: "8d91bd39e873417ea21673e0fee87604"  // WGS84 Streets Vector webmap
+        }
+    }
 });
 
 export const mapview = new MapView({
     map,
+    extent,
 });
 
-export const loadMap = async (node: HTMLDivElement, data: GitHubResult[]): Promise<MapView> => {
 
-    if (geojsonlayer) {
-        map.remove(geojsonlayer);
-        geojsonlayer.destroy();
+export const loadMap = async (node: HTMLDivElement, data: GitHubResult[]): Promise<MapView> => {
+    if (!geojsonlayer && data.length > 0) {
+        //set container to map view
+        const geojson = await createGeoJson(data);
+        const blob = new Blob([JSON.stringify(geojson)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        //get symbology
+        const renderer: Features = Object.assign(require('../templates/Renderer.json'));
+
+        //init GeoJSON Layer
+        geojsonlayer = new GeoJSONLayer({
+            url,
+            renderer,
+        });
+
+        geojsonlayer.featureReduction = {
+            type: "cluster",
+            clusterRadius: "100px",
+            popupTemplate: {
+                // cluster_count is an aggregate field indicating the number
+                // of features summarized by the cluster
+                content: "This cluster represents {cluster_count} jobs."
+            }
+        }
+
+        map.add(geojsonlayer);
+    } else if (data.length === 0) {
+        alert('pas de donnée')
     }
 
-    //set container to map view
     mapview.container = node;
-
-    const geojson = await createGeoJson(data);
-    const blob = new Blob([JSON.stringify(geojson)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    geojsonlayer = new GeoJSONLayer({
-        url,
-    })
-    map.add(geojsonlayer);
-
     return mapview;
 }
 

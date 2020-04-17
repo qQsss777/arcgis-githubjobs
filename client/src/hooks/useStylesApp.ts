@@ -45,7 +45,12 @@ const useStyles = makeStyles((theme) => ({
     },
     mapping_root: {
         width: '100%',
-        height: 'calc(100vh - 64px)'
+        height: 'calc(100vh - 64px)',
+        zIndex: -1,
+    },
+    mapping_map: {
+        width: '100%',
+        height: '100%'
     }
 }));
 

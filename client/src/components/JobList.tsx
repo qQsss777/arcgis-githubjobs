@@ -16,7 +16,7 @@ const JobList = () => {
     //useEffect for fetching data with an IIFE 
     useEffect(() => {
         (async function fetchData() {
-            const response = await fetch('http://localhost:5000');
+            const response = await fetch('http://localhost:8000');
             const json = await response.json();
             dispatch({ type: SET_DATA, payload: { data: json } });
         })();
