@@ -13,7 +13,7 @@ It was also my first time with material UI. I uses react boostrap usually.
 
 ## Requirements
 Docker
-
+Redis
 ArcGIS account to use geocode service and basemap.
 - more informations about ArcGIS : https://developers.arcgis.com/
 - features for free : https://developers.arcgis.com/pricing/ (1 million transactions on basemap and geocode service per month!!!)
@@ -21,8 +21,10 @@ ArcGIS account to use geocode service and basemap.
 
 Then you must to replace "YOUR_URL" line 21 in client/src/data/index.ts
 
-## Requirements
-Docker
+## Get started
+run in dev environnement
+
+    npm run dev root folder
 
 ## TODO
 write properly Typescript
